@@ -1,0 +1,72 @@
+{
+  "Tp7gyRJbcUS7JTHE2l9V8zXx1Rm1": {
+    "-L0vNBeU7TJMM-E8hIXj": {
+      "name": "Kitchen",
+      "ratings": {
+        "-L0vNBeU7TJMM-E8hIXc": {
+          "comment": "In general, everything is good",
+          "date": "2017-12-20T14:16:25.297Z",
+          "properties": {
+            "cleanliness": {
+              "comment": "Clean",
+              "rate": 2
+            },
+            "quality": {
+              "comment": "Everything was cooked well and the staff was very friendly. The only down side was the group smoke fest by the staff right at closing as I left.",
+              "rate": 4
+            },
+            "speed": {
+              "comment": "Normal",
+              "rate": 3
+            }
+          }
+        },
+        "-L0vNBeU7TJMM-E8hIXp": {
+          "comment": "Everything was very dirty",
+          "date": "2017-12-22T14:16:25.297Z",
+          "properties": {
+            "cleanliness": {
+              "comment": "Dirty",
+              "rate": 1
+            },
+            "quality": {
+              "comment": "Horrible! Got seated right away and wanted to order but of course the waitress wasn't ready. So we had to wait on her. Then our salads came out in good time and our food followed shortly behind but when I cut into my stake it was over cooked it had no pick center like I had asked for it (medium well) slightly pick.",
+              "rate": 2
+            },
+            "speed": {
+              "comment": "Low",
+              "rate": 1
+            }
+          }
+        },
+        "-L1U-VQDV8TYjclB3_xH": {
+          "comment": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus cum, delectus deserunt eligendi exercitationem fugit id itaque maiores mollitia non nulla perspiciatis placeat quisquam quod, recusandae reiciendis sunt temporibus unde.",
+          "date": "2017-12-29T14:10:25.297Z",
+          "properties": {
+            "cleanliness": {
+              "comment": "Ugit id itaque maiores mollitia non nulla perspiciatis placeat quisquam quod, recusandae reiciendis sunt temporibus unde",
+              "rate": 1
+            },
+            "quality": {
+              "comment": "Hight quality. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus cum, delectus deserunt eligendi exercitationem fugit id itaque maiores mollitia non nulla perspiciatis",
+              "rate": 2
+            },
+            "speed": {
+              "comment": "Accusamus cum",
+              "rate": 5
+            }
+          }
+        }
+      }
+    },
+    "-L0vNBeVhNYGyUdaWoBs": {
+      "name": "Hall"
+    },
+    "-L0vNBeVhNYGyUdaWoBt": {
+      "name": "Storage"
+    },
+    "-L0vNBeVhNYGyUdaWoBe": {
+      "name": "Delivery"
+    }
+  }
+}
