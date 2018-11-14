@@ -46,39 +46,39 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        email: '',
-        password: ''
-      }
+export default {
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.getters.user
     },
-    computed: {
-      user () {
-        return this.$store.getters.user
-      },
-      error () {
-        return this.$store.getters.error
-      },
-      loading () {
-        return this.$store.getters.loading
-      }
+    error () {
+      return this.$store.getters.error
     },
-    methods: {
-      onSignIn () {
-        this.$store.commit('clearError')
-        this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
-      },
-      onDismissed () {
-        this.$store.dispatch('clearError')
-      }
+    loading () {
+      return this.$store.getters.loading
+    }
+  },
+  methods: {
+    onSignIn () {
+      this.$store.commit('clearError')
+      this.$store.dispatch('signUserIn', { email: this.email, password: this.password })
     },
-    watch: {
-      user (value) {
-        if (value !== null && value !== undefined) {
-          this.$router.push('/')
-        }
+    onDismissed () {
+      this.$store.dispatch('clearError')
+    }
+  },
+  watch: {
+    user (value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push('/')
       }
     }
   }
+}
 </script>

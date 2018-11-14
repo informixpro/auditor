@@ -25,20 +25,20 @@
 </template>
 
 <script>
-  export default {
-    computed: {
-      user () {
-        let user = this.$store.getters.user
-        if (user !== null && user !== undefined) {
-          return user
-        }
-      }
-    },
-    methods: {
-      onLogout () {
-        this.$store.dispatch('logout')
-        this.$router.push('/signin')
+export default {
+  computed: {
+    user () {
+      let user = this.$store.getters.user
+      if (user !== null && user !== undefined) {
+        return user
       }
     }
+  },
+  methods: {
+    onLogout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/signin')
+    }
   }
+}
 </script>

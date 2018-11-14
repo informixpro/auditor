@@ -27,7 +27,7 @@ Vue.use(Vuetify, {
     error: '#b71c1c'
   }
 })
-Vue.use(VueProgressBar, {color: '#ffffff'})
+Vue.use(VueProgressBar, { color: '#ffffff' })
 
 Vue.use(svgicon, {
   tagName: 'svgicon'

@@ -18,21 +18,21 @@
 </template>
 
 <script>
-  export default {
-    computed: {
-      userIsAuthenticated () {
-        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-      },
-      isRoot () {
-        return this.$route.path === '/'
-      }
+export default {
+  computed: {
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     },
-    methods: {
-      goBack () {
-        window.history.length > 1
-          ? this.$router.go(-1)
-          : this.$router.push('/')
-      }
+    isRoot () {
+      return this.$route.path === '/'
+    }
+  },
+  methods: {
+    goBack () {
+      window.history.length > 1
+        ? this.$router.go(-1)
+        : this.$router.push('/')
     }
   }
+}
 </script>

@@ -49,38 +49,38 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        search: ''
-      }
+export default {
+  data () {
+    return {
+      search: ''
+    }
+  },
+  created () {
+    if (this.$store.state.departments === null) {
+      this.$store.dispatch('fetchUserData')
+    }
+  },
+  filters: {
+    toLowerCase (string) {
+      return string.toLowerCase()
+    }
+  },
+  computed: {
+    filteredDepartments () {
+      // console.log(this.$store.getters.filteredDepartments(this.search))
+      return this.$store.getters.filteredDepartments(this.search)
     },
-    created () {
-      if (this.$store.state.departments === null) {
-        this.$store.dispatch('fetchUserData')
-      }
+    isDepartmentsLoaded () {
+      return this.$store.state.departments !== null
+    }
+  },
+  methods: {
+    isRated: function (department) {
+      return department.hasOwnProperty('ratings') && department.ratings.length > 0
     },
-    filters: {
-      toLowerCase (string) {
-        return string.toLowerCase()
-      }
-    },
-    computed: {
-      filteredDepartments () {
-        // console.log(this.$store.getters.filteredDepartments(this.search))
-        return this.$store.getters.filteredDepartments(this.search)
-      },
-      isDepartmentsLoaded () {
-        return this.$store.state.departments !== null
-      }
-    },
-    methods: {
-      isRated: function (department) {
-        return department.hasOwnProperty('ratings') && department.ratings.length > 0
-      },
-      goToRoute (route) {
-        this.$router.push(route)
-      }
+    goToRoute (route) {
+      this.$router.push(route)
     }
   }
+}
 </script>

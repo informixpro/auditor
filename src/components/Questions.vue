@@ -18,7 +18,7 @@
 
         <v-stepper v-model="propertyIndex" vertical>
 
-          <div v-for="(property, key,  index) in rating.properties">
+          <div v-for="(property, key,  index) in rating.properties" :key="index">
             <v-stepper-step :step="index + 1" :complete="false">
               {{key}}
             </v-stepper-step>
@@ -26,7 +26,7 @@
 
               <v-layout row wrap>
                 <v-flex xs12 sm6>
-                  <image-rating class="pt-3" src="/static/img/star.svg" v-model="property.rate" :item-size="30" :show-rating="false" :spacing="1"></image-rating>
+                  <image-rating class="pt-3" :src="require('../assets/img/star.svg')" v-model="property.rate" :item-size="30" :show-rating="false" :spacing="1"></image-rating>
                 </v-flex>
                 <v-flex xs12 sm6>
                   <v-text-field
@@ -52,51 +52,50 @@
 </template>
 
 <script>
-  import config from '../config'
+import config from '../config'
 
-  export default {
-    props: ['id'],
-    data () {
-      return {
-        propertyIndex: 1,
-        questions: config.QUESTIONS,
-        rating: {
-          date: new Date().toISOString(),
-          comment: '',
-          properties: {}
-        }
+export default {
+  props: ['id'],
+  data () {
+    return {
+      propertyIndex: 1,
+      questions: config.QUESTIONS,
+      rating: {
+        date: new Date().toISOString(),
+        comment: '',
+        properties: {}
       }
+    }
+  },
+  computed: {
+    department () {
+      return this.$store.getters.getDepartmentById(this.id)
+    }
+  },
+  created () {
+    for (let i = 0; i < this.questions.length; i++) {
+      this.$set(this.rating.properties, this.questions[i], {
+        comment: '',
+        rate: null
+      })
+    }
+  },
+  methods: {
+    addRating () {
+      console.log('Start add rating', this.rating)
+      this.$store.dispatch('addRating', {
+        rating: this.rating,
+        departmentId: this.id
+      })
     },
-    computed: {
-      department () {
-        return this.$store.getters.getDepartmentById(this.id)
-      }
-    },
-    created () {
-      for (let i = 0; i < this.questions.length; i++) {
-        this.$set(this.rating.properties, this.questions[i], {
-          comment: '',
-          rate: null
-        })
-      }
-    },
-    methods: {
-      addRating () {
-        console.log('Start add rating', this.rating)
-        this.$store.dispatch('addRating', {
-          rating: this.rating,
-          departmentId: this.id
-        })
-      },
-      nextStep (step) {
-        if (step === this.questions.length) {
-          this.addRating()
-          this.$router.push('/ratings/' + this.id)
-        } else {
-          this.propertyIndex = step + 1
-        }
+    nextStep (step) {
+      if (step === this.questions.length) {
+        this.addRating()
+        this.$router.push('/ratings/' + this.id)
+      } else {
+        this.propertyIndex = step + 1
       }
     }
   }
+}
 </script>
-

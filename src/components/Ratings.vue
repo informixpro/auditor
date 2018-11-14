@@ -31,15 +31,15 @@
             <p class="grey--text">{{ rating.date | moment("from", "now") }}</p>
           </v-card-title>
 
-          <v-card-text v-if="rating.comment !== ''">{{rating.comment}}</v-card-text>
+          <v-card-text class="pt-0" v-if="rating.comment !== ''">{{rating.comment}}</v-card-text>
+          <v-divider></v-divider>
 
-          <v-list>
-            <v-divider></v-divider>
+          <v-list dense="true">
             <v-list-tile v-for="(property, key, index) in rating.properties" :key="index">
               <v-list-tile-content>
                 <v-list-tile-sub-title>
                   {{ key | capitalize }}
-                  <image-rating class="pl-3" style="vertical-align: middle" src="/static/img/star.svg" v-model="property.rate" :item-size="14" :show-rating="false" :inline="true" :read-only="true"></image-rating>
+                  <image-rating class="pl-3" style="vertical-align: middle" :src="require('../assets/img/star.svg')" v-model="property.rate" :item-size="14" :show-rating="false" :inline="true" :read-only="true"></image-rating>
                 </v-list-tile-sub-title>
               </v-list-tile-content>
 
@@ -61,30 +61,30 @@
 </template>
 
 <script>
-  export default {
-    props: ['id'],
-    data () {
-      return {
-        show: false
-      }
+export default {
+  props: ['id'],
+  data () {
+    return {
+      show: false
+    }
+  },
+  computed: {
+    department () {
+      return this.$store.getters.getDepartmentById(this.id)
     },
-    computed: {
-      department () {
-        return this.$store.getters.getDepartmentById(this.id)
-      },
-      reversedRatings () {
-        return this.$store.getters.reversedRatings(this.id)
-      },
-      isDepartmentsLoaded () {
-        return this.$store.state.departments !== null
-      }
+    reversedRatings () {
+      return this.$store.getters.reversedRatings(this.id)
     },
-    filters: {
-      capitalize (value) {
-        if (!value) return ''
-        value = value.toString()
-        return value.charAt(0).toUpperCase() + value.slice(1)
-      }
+    isDepartmentsLoaded () {
+      return this.$store.state.departments !== null
+    }
+  },
+  filters: {
+    capitalize (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   }
+}
 </script>

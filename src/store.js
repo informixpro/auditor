@@ -57,120 +57,120 @@ const mutations = {
 }
 
 const actions = {
-  fetchUserData ({commit, getters}) {
+  fetchUserData ({ commit, getters }) {
     const userId = getters.user.id
     firebase.database().ref().child(userId).once('value')
-        .then(data => {
-          // Fetch departments
-          const userData = data.val()
-          const departments = []
+      .then(data => {
+        // Fetch departments
+        const userData = data.val()
+        const departments = []
 
-          for (let departmentKey in userData) {
-            // Fetch ratings
-            const ratings = []
-            const userDataRatings = userData[departmentKey].ratings
-            for (let ratingKey in userDataRatings) {
-              ratings.push({
-                id: ratingKey,
-                comment: userDataRatings[ratingKey].comment,
-                date: userDataRatings[ratingKey].date,
-                properties: userDataRatings[ratingKey].properties
-              })
-            }
-
-            departments.push({
-              id: departmentKey,
-              name: userData[departmentKey].name,
-              ratings: ratings
+        for (let departmentKey in userData) {
+          // Fetch ratings
+          const ratings = []
+          const userDataRatings = userData[departmentKey].ratings
+          for (let ratingKey in userDataRatings) {
+            ratings.push({
+              id: ratingKey,
+              comment: userDataRatings[ratingKey].comment,
+              date: userDataRatings[ratingKey].date,
+              properties: userDataRatings[ratingKey].properties
             })
           }
-          commit('setDepartments', departments)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+
+          departments.push({
+            id: departmentKey,
+            name: userData[departmentKey].name,
+            ratings: ratings
+          })
+        }
+        commit('setDepartments', departments)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   },
-  addRating ({commit, getters}, payload) {
+  addRating ({ commit, getters }, payload) {
     const departmentId = payload.departmentId
     const rating = payload.rating
     const userId = getters.user.id
     commit('setLoading', true)
     commit('clearError')
     firebase.database().ref().child(userId).child(departmentId).child('ratings').push(rating)
-        .then(() => {
-          console.log('Finish add rating', rating)
+      .then(() => {
+        console.log('Finish add rating', rating)
+        commit('setLoading', false)
+        commit('addRating', payload)
+      })
+      .catch(
+        error => {
           commit('setLoading', false)
-          commit('addRating', payload)
-        })
-        .catch(
-            error => {
-              commit('setLoading', false)
-              commit('setError', error)
-              console.log(error)
-            }
-        )
+          commit('setError', error)
+          console.log(error)
+        }
+      )
   },
-  signUserUp ({commit, getters}, payload) {
+  signUserUp ({ commit, getters }, payload) {
     commit('setLoading', true)
     commit('clearError')
     firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-        .then(
-            user => {
-              commit('setLoading', false)
-              const newUser = {
-                id: user.uid,
-                email: user.email
-              }
-              commit('setUser', newUser)
+      .then(
+        user => {
+          commit('setLoading', false)
+          const newUser = {
+            id: user.uid,
+            email: user.email
+          }
+          commit('setUser', newUser)
 
-              const departments = {}
-              config.DEPARTMENTS.map((item, i) => {
-                const newDepartmentKey = firebase.database().ref().child(newUser.id).push().key
-                departments[newDepartmentKey] = {name: item, ratings: {}}
-              })
-              firebase.database().ref().child(newUser.id).update(departments)
-            }
-        )
-        .catch(
-            error => {
-              commit('setLoading', false)
-              commit('setError', error)
-              console.log(error)
-            }
-        )
+          const departments = {}
+          config.DEPARTMENTS.map((item, i) => {
+            const newDepartmentKey = firebase.database().ref().child(newUser.id).push().key
+            departments[newDepartmentKey] = { name: item, ratings: {} }
+          })
+          firebase.database().ref().child(newUser.id).update(departments)
+        }
+      )
+      .catch(
+        error => {
+          commit('setLoading', false)
+          commit('setError', error)
+          console.log(error)
+        }
+      )
   },
-  signUserIn ({commit, dispatch}, payload) {
+  signUserIn ({ commit, dispatch }, payload) {
     commit('setLoading', true)
     commit('clearError')
     firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-        .then(
-            user => {
-              commit('setLoading', false)
-              const newUser = {
-                id: user.uid,
-                email: user.email
-              }
-              commit('setUser', newUser)
-            }
-        )
-        .catch(
-            error => {
-              commit('setLoading', false)
-              commit('setError', error)
-              console.log(error)
-            }
-        )
+      .then(
+        user => {
+          commit('setLoading', false)
+          const newUser = {
+            id: user.uid,
+            email: user.email
+          }
+          commit('setUser', newUser)
+        }
+      )
+      .catch(
+        error => {
+          commit('setLoading', false)
+          commit('setError', error)
+          console.log(error)
+        }
+      )
   },
-  autoSignIn ({commit}, payload) {
+  autoSignIn ({ commit }, payload) {
     commit('setUser', {
       id: payload.uid,
       email: payload.email
     })
   },
-  clearError ({commit}) {
+  clearError ({ commit }) {
     commit('clearError')
   },
-  logout ({commit}) {
+  logout ({ commit }) {
     firebase.auth().signOut()
     commit('setUser', null)
     commit('setDepartments', null)
