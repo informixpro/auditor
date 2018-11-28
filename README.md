@@ -1,8 +1,11 @@
-# auditor
+## Auditor
+A simple restaurant auditor.
 
-> Simple restaurant auditor
+Live demo: [http://informix.pro/demo/auditor/](http://informix.pro/demo/auditor/)
 
-## Use
+![Restaurant Auditor](/screenshots/auditor-screenshot.png?raw=true "Restaurant Auditor")
+
+### Use
 * vuejs-2.5
 * vue-cli
 * vue-router
@@ -10,27 +13,16 @@
 * vuetify
 * firebase
 
-## Project setup
-```
+### Project setup
+
+``` bash
+# Install dependencies
 npm install
-```
 
-### Compiles and hot-reloads for development
-```
+# Compiles and hot-reloads for development
 npm run serve
-```
 
-### Compiles and minifies for production
-```
+# Compiles and minifies for production
 npm run build
-```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
